@@ -1,0 +1,13 @@
+.venv/
+*.retry
+.vault_pass
+vault-password.txt
+group_vars/FABRIC/vault.yml
+
+intended/configs/*
+intended/structured_configs/*
+documentation/*
+
+!intended/configs/.gitkeep
+!intended/structured_configs/.gitkeep
+!documentation/.gitkeep

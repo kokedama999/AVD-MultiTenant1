@@ -1,0 +1,60 @@
+---
+type: l3leaf
+
+l3leaf:
+  defaults:
+    platform: vEOS-lab
+    loopback_ipv4_pool: 51.0.0.0/24
+    vtep_loopback_ipv4_pool: 172.16.0.0/24
+    uplink_switches:
+      - DC1-Spine1
+      - DC1-Spine2
+    uplink_ipv4_pool: 192.168.250.0/24
+    virtual_router_mac_address: 00:1c:73:00:00:99
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 4096
+
+  nodes:
+    - name: DC1-Leaf1
+      id: 11
+      bgp_as: "63524.11"
+      mgmt_ip: 192.168.99.11/24
+      uplink_interfaces:
+        - Ethernet1
+        - Ethernet2
+      uplink_switch_interfaces:
+        - Ethernet1
+        - Ethernet1
+
+    - name: DC1-Leaf2
+      id: 12
+      bgp_as: "63524.12"
+      mgmt_ip: 192.168.99.12/24
+      uplink_interfaces:
+        - Ethernet1
+        - Ethernet2
+      uplink_switch_interfaces:
+        - Ethernet2
+        - Ethernet2
+
+    - name: DC1-Leaf3
+      id: 13
+      bgp_as: "63524.13"
+      mgmt_ip: 192.168.99.13/24
+      uplink_interfaces:
+        - Ethernet1
+        - Ethernet2
+      uplink_switch_interfaces:
+        - Ethernet3
+        - Ethernet3
+
+    - name: DC1-Leaf4
+      id: 14
+      bgp_as: "63524.14"
+      mgmt_ip: 192.168.99.14/24
+      uplink_interfaces:
+        - Ethernet1
+        - Ethernet2
+      uplink_switch_interfaces:
+        - Ethernet4
+        - Ethernet4

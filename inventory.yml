@@ -1,0 +1,30 @@
+---
+all:
+  children:
+    FABRIC:
+      children:
+        SPINES:
+          hosts:
+            DC1-Spine1:
+              ansible_host: 192.168.99.100
+            DC1-Spine2:
+              ansible_host: 192.168.99.200
+
+        LEAFS:
+          hosts:
+            DC1-Leaf1:
+              ansible_host: 192.168.99.11
+            DC1-Leaf2:
+              ansible_host: 192.168.99.12
+            DC1-Leaf3:
+              ansible_host: 192.168.99.13
+            DC1-Leaf4:
+              ansible_host: 192.168.99.14
+
+    NETWORK_SERVICES:
+      children:
+        LEAFS:
+
+    CONNECTED_ENDPOINTS:
+      children:
+        LEAFS:

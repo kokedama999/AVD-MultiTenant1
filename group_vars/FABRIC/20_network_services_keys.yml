@@ -1,0 +1,5 @@
+---
+# Each tenant is kept in its own file under group_vars/NETWORK_SERVICES.
+network_services_keys:
+  - name: tenant1_services
+  - name: tenant2_services

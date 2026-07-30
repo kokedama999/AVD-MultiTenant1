@@ -1,0 +1,13 @@
+---
+- name: Build AVD configurations and documentation
+  hosts: FABRIC
+  gather_facts: false
+
+  tasks:
+    - name: Generate AVD structured configurations
+      ansible.builtin.import_role:
+        name: arista.avd.eos_designs
+
+    - name: Generate EOS configurations and documentation
+      ansible.builtin.import_role:
+        name: arista.avd.eos_cli_config_gen

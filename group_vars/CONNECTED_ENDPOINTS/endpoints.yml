@@ -1,0 +1,25 @@
+---
+servers:
+  - name: VPC7
+    adapters:
+      - endpoint_ports:
+          - eth0
+        switch_ports:
+          - Ethernet8
+        switches:
+          - DC1-Leaf1
+        vlans: 100
+        mode: access
+        spanning_tree_portfast: edge
+
+  - name: VPC8
+    adapters:
+      - endpoint_ports:
+          - eth0
+        switch_ports:
+          - Ethernet8
+        switches:
+          - DC1-Leaf4
+        vlans: 100
+        mode: access
+        spanning_tree_portfast: edge

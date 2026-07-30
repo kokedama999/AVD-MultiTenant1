@@ -1,0 +1,13 @@
+---
+- name: Deploy AVD configurations using eAPI
+  hosts: FABRIC
+  gather_facts: false
+  serial: 1
+
+  vars:
+    eos_config_deploy_eapi_pre_running_config_backup: true
+
+  tasks:
+    - name: Deploy configurations
+      ansible.builtin.import_role:
+        name: arista.avd.eos_config_deploy_eapi

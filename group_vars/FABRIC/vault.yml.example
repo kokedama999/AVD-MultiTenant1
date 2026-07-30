@@ -1,0 +1,3 @@
+---
+vault_ansible_user: YOUR_EOS_USERNAME
+vault_ansible_password: YOUR_EOS_PASSWORD

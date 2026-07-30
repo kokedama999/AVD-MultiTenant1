@@ -1,0 +1,17 @@
+---
+type: spine
+
+spine:
+  defaults:
+    platform: vEOS-lab
+    loopback_ipv4_pool: 51.0.0.0/24
+    bgp_as: "64524.0"
+
+  nodes:
+    - name: DC1-Spine1
+      id: 1
+      mgmt_ip: 192.168.99.100/24
+
+    - name: DC1-Spine2
+      id: 2
+      mgmt_ip: 192.168.99.200/24

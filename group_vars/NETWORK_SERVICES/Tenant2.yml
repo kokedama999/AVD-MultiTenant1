@@ -1,0 +1,14 @@
+---
+# Tenant2 contains VRF21 and VRF22.
+tenant2_services:
+  - name: Tenant2
+    mac_vrf_vni_base: 20000
+
+    vrfs:
+      - name: VRF21
+        vrf_vni: 50221
+        # Add VRF21 SVIs or L3 interfaces here.
+
+      - name: VRF22
+        vrf_vni: 50222
+        # Add VRF22 SVIs or L3 interfaces here.

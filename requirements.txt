@@ -1,0 +1,2 @@
+ansible-core==2.21.2
+pyavd[ansible]==6.3.0

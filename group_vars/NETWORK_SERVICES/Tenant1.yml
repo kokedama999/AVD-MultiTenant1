@@ -1,0 +1,20 @@
+---
+# Tenant1 contains VRF11 and VRF12.
+tenant1_services:
+  - name: Tenant1
+    mac_vrf_vni_base: 10000
+
+    vrfs:
+      - name: VRF11
+        vrf_vni: 50111
+
+        # Existing VLAN 100 service is retained under Tenant1 / VRF11.
+        svis:
+          - id: 100
+            name: USERS_VLAN100
+            enabled: true
+            ip_address_virtual: 10.100.100.1/24
+
+      - name: VRF12
+        vrf_vni: 50112
+        # Add VRF12 SVIs or L3 interfaces here.

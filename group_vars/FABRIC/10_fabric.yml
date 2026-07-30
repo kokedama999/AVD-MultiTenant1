@@ -1,0 +1,20 @@
+---
+fabric_name: FABRIC
+underlay_routing_protocol: ebgp
+overlay_routing_protocol: ebgp
+p2p_uplinks_mtu: 1500
+
+management_eapi:
+  enabled: true
+  enable_https: true
+
+eos_designs_documentation:
+  topology_csv: true
+  p2p_links_csv: true
+
+aaa_settings:
+  local_users:
+    - name: "{{ vault_ansible_user }}"
+      privilege: 15
+      role: network-admin
+      sha512_password: "{{ vault_ansible_password | arista.avd.secure_hash(salt='AVDLabSalt123456') }}"
