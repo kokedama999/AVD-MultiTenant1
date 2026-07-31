@@ -23,3 +23,29 @@ servers:
         vlans: 100
         mode: access
         spanning_tree_portfast: edge
+
+
+  - name: T2-VR2_PC1
+    adapters:
+      - endpoint_ports:
+          - eth0
+        switch_ports:
+          - Ethernet8
+        switches:
+          - DC1-Leaf2
+        vlans: 220
+        mode: access
+        spanning_tree_portfast: edge
+
+    
+  - name: T2-VR2_PC1
+    adapters:
+      - endpoint_ports:
+          - eth0
+        switch_ports:
+          - Ethernet8
+        switches:
+          - DC1-Leaf3
+        vlans: 220
+        mode: access
+        spanning_tree_portfast: edge
