@@ -5,10 +5,10 @@ tenant2_services:
     mac_vrf_vni_base: 20000
 
     vrfs:
-      - name: VRF21
+      - name: Tenant2_VRF21
         vrf_vni: 50221
         # Add VRF21 SVIs or L3 interfaces here.
 
-      - name: VRF22
+      - name: Tenant2_VRF22
         vrf_vni: 50222
         # Add VRF22 SVIs or L3 interfaces here.
