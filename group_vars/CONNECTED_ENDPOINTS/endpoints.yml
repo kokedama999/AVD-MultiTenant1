@@ -8,7 +8,7 @@ servers:
           - Ethernet8
         switches:
           - DC1-Leaf1
-        vlans: 100
+        vlans: 110
         mode: access
         spanning_tree_portfast: edge
 
@@ -20,7 +20,7 @@ servers:
           - Ethernet8
         switches:
           - DC1-Leaf4
-        vlans: 100
+        vlans: 110
         mode: access
         spanning_tree_portfast: edge
 
@@ -33,7 +33,7 @@ servers:
           - Ethernet8
         switches:
           - DC1-Leaf2
-        vlans: 220
+        vlans: 210
         mode: access
         spanning_tree_portfast: edge
 
@@ -46,6 +46,6 @@ servers:
           - Ethernet8
         switches:
           - DC1-Leaf3
-        vlans: 220
+        vlans: 210
         mode: access
         spanning_tree_portfast: edge
