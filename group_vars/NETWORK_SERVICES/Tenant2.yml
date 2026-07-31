@@ -5,23 +5,22 @@ tenant2_services:
     mac_vrf_vni_base: 20000
 
     vrfs:
-      - name: Tenant2_VRF21
+      - name: Tenant2_VRF1
         vrf_vni: 50221
         # Add VRF21 SVIs or L3 interfaces here.
         
         svis:
-          - id: 220
+          - id: 210
             name: USERS_VLAN220
             enabled: true
             ip_address_virtual: 10.220.220.1/24
 
-      - name: Tenant2_VRF22
+      - name: Tenant2_VRF2
         vrf_vni: 50222
         # Add VRF22 SVIs or L3 interfaces here.
         
         svis:
-          - id: 222
+          - id: 220
             name: USERS_VLAN222
             enabled: true
             ip_address_virtual: 10.222.222.1/24
-
