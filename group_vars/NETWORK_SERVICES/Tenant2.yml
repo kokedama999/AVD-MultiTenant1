@@ -10,7 +10,7 @@ tenant2_services:
         # Add VRF21 SVIs or L3 interfaces here.
         
         svis:
-          - id: 20
+          - id: 220
             name: USERS_VLAN20
             enabled: true
             ip_address_virtual: 10.220.220.1/24
@@ -20,7 +20,7 @@ tenant2_services:
         # Add VRF22 SVIs or L3 interfaces here.
         
         svis:
-          - id: 22
+          - id: 222
             name: USERS_VLAN22
             enabled: true
             ip_address_virtual: 10.222.222.1/24
