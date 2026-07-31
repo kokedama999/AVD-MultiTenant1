@@ -11,7 +11,7 @@ tenant1_services:
         # Existing VLAN 100 service is retained under Tenant1 / VRF11.
         svis:
           - id: 110
-            name: USERS_VLAN100
+            name: USERS_VLAN110
             enabled: true
             ip_address_virtual: 10.110.110.1/24
 
@@ -20,6 +20,6 @@ tenant1_services:
         # Add VRF12 SVIs or L3 interfaces here.
         svis:
           - id: 120
-            name: USERS_VLAN200
+            name: USERS_VLAN120
             enabled: true
             ip_address_virtual: 10.120.120.1/24
