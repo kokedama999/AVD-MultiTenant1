@@ -38,7 +38,7 @@ servers:
         spanning_tree_portfast: edge
 
     
-  - name: T2-VR2_PC1
+  - name: T2-VR2_PC2
     adapters:
       - endpoint_ports:
           - eth0
