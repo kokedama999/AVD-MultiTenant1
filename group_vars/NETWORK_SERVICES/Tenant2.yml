@@ -13,7 +13,7 @@ tenant2_services:
           - id: 210
             name: USERS_VLAN210
             enabled: true
-            ip_address_virtual: 10.220.220.1/24
+            ip_address_virtual: 10.210.210.1/24
 
       - name: Tenant2_VRF2
         vrf_vni: 50222
