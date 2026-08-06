@@ -11,7 +11,7 @@ tenant2_services:
         
         svis:
           - id: 210
-            name: USERS_VLAN210
+            name: T1_VR1_USERS_VLAN210
             enabled: true
             ip_address_virtual: 10.210.210.1/24
 
@@ -21,6 +21,6 @@ tenant2_services:
         
         svis:
           - id: 220
-            name: USERS_VLAN220
+            name: T1_VR2_USERS_VLAN220
             enabled: true
             ip_address_virtual: 10.222.222.1/24
