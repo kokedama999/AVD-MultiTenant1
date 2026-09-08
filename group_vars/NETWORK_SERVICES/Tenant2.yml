@@ -20,7 +20,7 @@ tenant2_services:
         # Add VRF22 SVIs or L3 interfaces here.
         
         svis:
-          - id: 222
+          - id: 220
             name: T2_VR2_USERS_VLAN220
             enabled: true
             ip_address_virtual: 20.20.220.1/24
