@@ -30,3 +30,11 @@ tenant1_services:
             nodes:
               - node: DC1-Leaf1
                 ip_address: 10.255.91.1/30
+
+          # Dedicated router/firewall transit VLAN for Tenant1_VRF2
+          - id: 92
+            name: T1_VRF2_ROUTER_TRANSIT
+            enabled: true
+            nodes:
+              - node: DC1-Leaf1
+                ip_address: 10.255.92.1/30
