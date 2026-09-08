@@ -25,10 +25,3 @@ tenant2_services:
             enabled: true
             ip_address_virtual: 20.20.220.1/24
 
-          # Dedicated router/firewall transit VLAN for Tenant2_VRF1
-          - id: 92
-            name: T1_VRF2_ROUTER_TRANSIT
-            enabled: true
-            nodes:
-              - node: DC1-Leaf1
-                ip_address: 10.255.92.1/30
