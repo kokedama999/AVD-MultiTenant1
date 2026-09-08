@@ -49,3 +49,16 @@ servers:
         vlans: 210
         mode: access
         spanning_tree_portfast: edge
+
+
+  - name: INTERVRF_ROUTER
+    adapters:
+      - endpoint_ports:
+          - Gi0/0
+        switch_ports:
+          - Ethernet7
+        switches:
+          - DC1-Leaf1
+        vlans: "91,92"
+        mode: trunk
+        spanning_tree_portfast: edge
