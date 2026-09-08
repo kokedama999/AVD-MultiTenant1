@@ -30,11 +30,3 @@ tenant1_services:
             name: USERS_VLAN120
             enabled: true
             ip_address_virtual: 10.120.120.1/24
-
-          # Dedicated router/firewall transit VLAN for Tenant1_VRF2
-          - id: 912
-            name: T1_VRF2_ROUTER_TRANSIT
-            enabled: true
-            nodes:
-              - node: DC1-Leaf1
-                ip_address: 10.255.12.1/30
