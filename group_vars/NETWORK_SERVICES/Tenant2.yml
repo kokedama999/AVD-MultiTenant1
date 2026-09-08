@@ -31,4 +31,4 @@ tenant2_services:
             enabled: true
             nodes:
               - node: DC1-Leaf1
-                ip_address: 10.255.12.1/30
+                ip_address: 10.255.92.1/30
