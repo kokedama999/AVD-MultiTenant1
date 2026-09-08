@@ -50,6 +50,19 @@ servers:
         mode: access
         spanning_tree_portfast: edge
 
+    
+  - name: T1-VR2_PC1
+    adapters:
+      - endpoint_ports:
+          - eth0
+        switch_ports:
+          - Ethernet5
+        switches:
+          - DC1-Leaf4
+        vlans: 120
+        mode: access
+        spanning_tree_portfast: edge
+
 
   - name: INTERVRF_ROUTER
     adapters:
