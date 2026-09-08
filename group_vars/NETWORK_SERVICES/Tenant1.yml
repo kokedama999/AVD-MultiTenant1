@@ -16,7 +16,7 @@ tenant1_services:
 
           # User VLAN
           - id: 110
-            name:USERS_T1_VR1_VLAN110
+            name: USERS_T1_VR1_VLAN110
             enabled: true
             ip_address_virtual: 10.110.110.1/24
 
