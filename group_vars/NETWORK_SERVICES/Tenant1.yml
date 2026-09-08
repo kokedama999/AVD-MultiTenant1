@@ -18,7 +18,7 @@ tenant1_services:
           - id: 110
             name: USERS_T1_VR1_VLAN110
             enabled: true
-            ip_address_virtual: 10.110.110.1/24
+            ip_address_virtual: 10.10.110.1/24
 
           # Transit to Inter-VRF Router
           - id: 91
@@ -60,7 +60,7 @@ tenant1_services:
 
         # Route VRF1 subnet through external router
         static_routes:
-          - prefix: 10.110.110.0/24
+          - prefix: 10.10.110.0/24
             next_hop: 10.255.92.2
             nodes:
               - DC1-Leaf1
