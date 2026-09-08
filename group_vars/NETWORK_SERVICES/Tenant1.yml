@@ -19,9 +19,16 @@ tenant1_services:
 
         svis:
           - id: 120
-            name: USERS_VLAN120
+            name: USERS_T1_VLAN120
             enabled: true
             ip_address_virtual: 10.120.120.1/24
+
+
+          - id: 220
+            name: USERS_T2_VLAN220
+            enabled: true
+            ip_address_virtual: 10.220.220.1/24
+
 
           # Dedicated router/firewall transit VLAN for Tenant1_VRF1
           - id: 91
