@@ -11,9 +11,9 @@ tenant2_services:
         
         svis:
           - id: 210
-            name: T1_VR1_USERS_VLAN210
+            name: T2_VR1_USERS_VLAN210
             enabled: true
-            ip_address_virtual: 10.210.210.1/24
+            ip_address_virtual: 20.10.210.1/24
 
       - name: Tenant2_VRF2
         vrf_vni: 50222
@@ -21,9 +21,9 @@ tenant2_services:
         
         svis:
           - id: 222
-            name: T1_VR2_USERS_VLAN220
+            name: T2_VR2_USERS_VLAN220
             enabled: true
-            ip_address_virtual: 10.222.222.1/24
+            ip_address_virtual: 20.20.220.1/24
 
           # Dedicated router/firewall transit VLAN for Tenant2_VRF1
           - id: 92
