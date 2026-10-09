@@ -1,5 +1,9 @@
+
 ---
-# Tenant2 contains Tenant2_VRF1 and Tenant2_VRF2.
+# ==========================================================
+# Tenant2 - Network Services and DHCP
+# DHCP serving leaf: DC1-Leaf4
+# ==========================================================
 
 tenant2_services:
   - name: Tenant2
@@ -15,19 +19,14 @@ tenant2_services:
 
         svis:
 
-          # User VLAN
+          # User VLAN 210
           - id: 210
             name: T2_VR1_USERS_VLAN210
             enabled: true
             ip_address_virtual: 20.10.210.1/24
 
-            # DHCP server pool definition (custom data)
-            dhcp_pool:
-              network: 20.10.210.0/24
-              start: 20.10.210.10
-              end: 20.10.210.254
-              default_gateway: 20.10.210.1
-              lease_days: 1
+            # Enable DHCP only on the designated serving leaf
+            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
 
       # ======================================================
       # Tenant2 VRF2
@@ -37,16 +36,36 @@ tenant2_services:
 
         svis:
 
-          # User VLAN
+          # User VLAN 220
           - id: 220
             name: T2_VR2_USERS_VLAN220
             enabled: true
             ip_address_virtual: 20.20.220.1/24
 
-            # DHCP server pool definition (custom data)
-            dhcp_pool:
-              network: 20.20.220.0/24
-              start: 20.20.220.10
-              end: 20.20.220.254
-              default_gateway: 20.20.220.1
-              lease_days: 1
+            # Enable DHCP only on the designated serving leaf
+            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
+
+
+# ==========================================================
+# Tenant2 DHCP server definitions
+# ==========================================================
+
+tenant2_dhcp_servers:
+
+  # VRF1 - VLAN 210
+  - vrf: Tenant2_VRF1
+    ipv4_subnets:
+      - subnet: 20.10.210.0/24
+        default_gateway: 20.10.210.1
+        ranges:
+          - start: 20.10.210.10
+            end: 20.10.210.254
+
+  # VRF2 - VLAN 220
+  - vrf: Tenant2_VRF2
+    ipv4_subnets:
+      - subnet: 20.20.220.0/24
+        default_gateway: 20.20.220.1
+        ranges:
+          - start: 20.20.220.10
+            end: 20.20.220.254
