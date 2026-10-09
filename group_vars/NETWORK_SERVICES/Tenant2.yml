@@ -1,9 +1,7 @@
-
 ---
-# ==========================================================
-# Tenant2 - Network Services and DHCP
-# DHCP serving leaf: DC1-Leaf4
-# ==========================================================
+# ======================================================
+# Tenant2 - Network Services
+# ======================================================
 
 tenant2_services:
   - name: Tenant2
@@ -11,49 +9,46 @@ tenant2_services:
 
     vrfs:
 
-      # ======================================================
+      # ==================================================
       # Tenant2 VRF1
-      # ======================================================
+      # ==================================================
       - name: Tenant2_VRF1
         vrf_vni: 50221
 
         svis:
 
-          # User VLAN 210
+          # User VLAN
           - id: 210
             name: T2_VR1_USERS_VLAN210
             enabled: true
             ip_address_virtual: 20.10.210.1/24
 
-            # Enable DHCP only on the designated serving leaf
-            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
-
-      # ======================================================
+      # ==================================================
       # Tenant2 VRF2
-      # ======================================================
+      # ==================================================
       - name: Tenant2_VRF2
         vrf_vni: 50222
 
         svis:
 
-          # User VLAN 220
+          # User VLAN
           - id: 220
             name: T2_VR2_USERS_VLAN220
             enabled: true
             ip_address_virtual: 20.20.220.1/24
 
-            # Enable DHCP only on the designated serving leaf
-            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
 
+# ======================================================
+# Tenant2 DHCP Pools
+# ======================================================
 
-# ==========================================================
-# Tenant2 DHCP server definitions
-# ==========================================================
+tenant2_dhcp_server_definitions:
 
-tenant2_dhcp_servers:
-
-  # VRF1 - VLAN 210
   - vrf: Tenant2_VRF1
+    lease_time_ipv4:
+      days: 1
+      hours: 0
+      minutes: 0
     ipv4_subnets:
       - subnet: 20.10.210.0/24
         default_gateway: 20.10.210.1
@@ -61,11 +56,35 @@ tenant2_dhcp_servers:
           - start: 20.10.210.10
             end: 20.10.210.254
 
-  # VRF2 - VLAN 220
   - vrf: Tenant2_VRF2
+    lease_time_ipv4:
+      days: 1
+      hours: 0
+      minutes: 0
     ipv4_subnets:
       - subnet: 20.20.220.0/24
         default_gateway: 20.20.220.1
         ranges:
           - start: 20.20.220.10
             end: 20.20.220.254
+
+
+# ======================================================
+# Enable DHCP on Tenant2 SVIs
+# ======================================================
+
+tenant2_dhcp_svi_definitions:
+  - name: Vlan210
+    dhcp_server_ipv4: true
+
+  - name: Vlan220
+    dhcp_server_ipv4: true
+
+
+# ======================================================
+# Apply Tenant2 DHCP only to DC1-Leaf4
+# ======================================================
+
+tenant2_csc_dhcp_servers: "{{ tenant2_dhcp_server_definitions if inventory_hostname == 'DC1-Leaf4' else [] }}"
+
+tenant2_csc_vlan_interfaces: "{{ tenant2_dhcp_svi_definitions if inventory_hostname == 'DC1-Leaf4' else [] }}"
