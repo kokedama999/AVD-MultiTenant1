@@ -1,9 +1,7 @@
-
 ---
-# ==========================================================
-# Tenant1 - Network Services and DHCP
-# DHCP serving leaf: DC1-Leaf4
-# ==========================================================
+# ======================================================
+# Tenant1 - Network Services
+# ======================================================
 
 tenant1_services:
   - name: Tenant1
@@ -11,22 +9,19 @@ tenant1_services:
 
     vrfs:
 
-      # ======================================================
+      # ==================================================
       # Tenant1 VRF1
-      # ======================================================
+      # ==================================================
       - name: Tenant1_VRF1
         vrf_vni: 50111
 
         svis:
 
-          # User VLAN 110
+          # User VLAN
           - id: 110
             name: USERS_T1_VR1_VLAN110
             enabled: true
             ip_address_virtual: 10.10.110.1/24
-
-            # Enable DHCP only on the designated serving leaf
-            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
 
           # Transit to Inter-VRF Router
           - id: 91
@@ -36,29 +31,25 @@ tenant1_services:
               - node: DC1-Leaf1
                 ip_address: 10.255.91.1/30
 
-        # Route VRF2 subnet through external router
         static_routes:
           - prefix: 10.20.120.0/24
             next_hop: 10.255.91.2
             nodes:
               - DC1-Leaf1
 
-      # ======================================================
+      # ==================================================
       # Tenant1 VRF2
-      # ======================================================
+      # ==================================================
       - name: Tenant1_VRF2
         vrf_vni: 50112
 
         svis:
 
-          # User VLAN 120
+          # User VLAN
           - id: 120
             name: USERS_T1_VR2_VLAN120
             enabled: true
             ip_address_virtual: 10.20.120.1/24
-
-            # Enable DHCP only on the designated serving leaf
-            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
 
           # Transit to Inter-VRF Router
           - id: 92
@@ -68,7 +59,6 @@ tenant1_services:
               - node: DC1-Leaf1
                 ip_address: 10.255.92.1/30
 
-        # Route VRF1 subnet through external router
         static_routes:
           - prefix: 10.10.110.0/24
             next_hop: 10.255.92.2
@@ -76,14 +66,30 @@ tenant1_services:
               - DC1-Leaf1
 
 
-# ==========================================================
-# Tenant1 DHCP server definitions
-# ==========================================================
+# ======================================================
+# AVD Custom Structured Configuration Prefixes
+#
+# Preserves AVD default prefix.
+# Adds independent prefixes for Tenant1 and Tenant2.
+# ======================================================
 
-tenant1_dhcp_servers:
+custom_structured_configuration_prefix:
+  - custom_structured_configuration_
+  - tenant1_csc_
+  - tenant2_csc_
 
-  # VRF1 - VLAN 110
+
+# ======================================================
+# Tenant1 DHCP Pools
+# ======================================================
+
+tenant1_dhcp_server_definitions:
+
   - vrf: Tenant1_VRF1
+    lease_time_ipv4:
+      days: 1
+      hours: 0
+      minutes: 0
     ipv4_subnets:
       - subnet: 10.10.110.0/24
         default_gateway: 10.10.110.1
@@ -91,8 +97,11 @@ tenant1_dhcp_servers:
           - start: 10.10.110.10
             end: 10.10.110.254
 
-  # VRF2 - VLAN 120
   - vrf: Tenant1_VRF2
+    lease_time_ipv4:
+      days: 1
+      hours: 0
+      minutes: 0
     ipv4_subnets:
       - subnet: 10.20.120.0/24
         default_gateway: 10.20.120.1
@@ -101,9 +110,22 @@ tenant1_dhcp_servers:
             end: 10.20.120.254
 
 
-# ==========================================================
-# Merge DHCP definitions from both tenant files
-# Only DC1-Leaf4 receives the DHCP server configuration.
-# ==========================================================
+# ======================================================
+# Enable DHCP on Tenant1 SVIs
+# ======================================================
 
-custom_structured_configuration_dhcp_servers: "{{ (tenant1_dhcp_servers + tenant2_dhcp_servers) if inventory_hostname == 'DC1-Leaf4' else [] }}"
+tenant1_dhcp_svi_definitions:
+  - name: Vlan110
+    dhcp_server_ipv4: true
+
+  - name: Vlan120
+    dhcp_server_ipv4: true
+
+
+# ======================================================
+# Apply Tenant1 DHCP only to DC1-Leaf4
+# ======================================================
+
+tenant1_csc_dhcp_servers: "{{ tenant1_dhcp_server_definitions if inventory_hostname == 'DC1-Leaf4' else [] }}"
+
+tenant1_csc_vlan_interfaces: "{{ tenant1_dhcp_svi_definitions if inventory_hostname == 'DC1-Leaf4' else [] }}"
