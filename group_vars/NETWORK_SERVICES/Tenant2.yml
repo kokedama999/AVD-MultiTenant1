@@ -1,27 +1,52 @@
 ---
-# Tenant2 contains VRF21 and VRF22.
+# Tenant2 contains Tenant2_VRF1 and Tenant2_VRF2.
+
 tenant2_services:
   - name: Tenant2
     mac_vrf_vni_base: 20000
 
     vrfs:
+
+      # ======================================================
+      # Tenant2 VRF1
+      # ======================================================
       - name: Tenant2_VRF1
         vrf_vni: 50221
-        # Add VRF21 SVIs or L3 interfaces here.
-        
+
         svis:
+
+          # User VLAN
           - id: 210
             name: T2_VR1_USERS_VLAN210
             enabled: true
             ip_address_virtual: 20.10.210.1/24
 
+            # DHCP server pool definition (custom data)
+            dhcp_pool:
+              network: 20.10.210.0/24
+              start: 20.10.210.10
+              end: 20.10.210.254
+              default_gateway: 20.10.210.1
+              lease_days: 1
+
+      # ======================================================
+      # Tenant2 VRF2
+      # ======================================================
       - name: Tenant2_VRF2
         vrf_vni: 50222
-        # Add VRF22 SVIs or L3 interfaces here.
-        
+
         svis:
+
+          # User VLAN
           - id: 220
             name: T2_VR2_USERS_VLAN220
             enabled: true
             ip_address_virtual: 20.20.220.1/24
 
+            # DHCP server pool definition (custom data)
+            dhcp_pool:
+              network: 20.20.220.0/24
+              start: 20.20.220.10
+              end: 20.20.220.254
+              default_gateway: 20.20.220.1
+              lease_days: 1
