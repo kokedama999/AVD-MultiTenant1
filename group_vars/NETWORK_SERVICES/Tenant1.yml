@@ -1,5 +1,6 @@
 ---
 # Tenant1 contains Tenant1_VRF1 and Tenant1_VRF2.
+
 tenant1_services:
   - name: Tenant1
     mac_vrf_vni_base: 10000
@@ -20,6 +21,14 @@ tenant1_services:
             enabled: true
             ip_address_virtual: 10.10.110.1/24
 
+            # DHCP server pool definition (custom data)
+            dhcp_pool:
+              network: 10.10.110.0/24
+              start: 10.10.110.10
+              end: 10.10.110.254
+              default_gateway: 10.10.110.1
+              lease_days: 1
+
           # Transit to Inter-VRF Router
           - id: 91
             name: T1_VRF1_ROUTER_TRANSIT
@@ -35,7 +44,6 @@ tenant1_services:
             nodes:
               - DC1-Leaf1
 
-
       # ======================================================
       # Tenant1 VRF2
       # ======================================================
@@ -49,6 +57,14 @@ tenant1_services:
             name: USERS_T1_VR2_VLAN120
             enabled: true
             ip_address_virtual: 10.20.120.1/24
+
+            # DHCP server pool definition (custom data)
+            dhcp_pool:
+              network: 10.20.120.0/24
+              start: 10.20.120.10
+              end: 10.20.120.254
+              default_gateway: 10.20.120.1
+              lease_days: 1
 
           # Transit to Inter-VRF Router
           - id: 92
