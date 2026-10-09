@@ -1,5 +1,9 @@
+
 ---
-# Tenant1 contains Tenant1_VRF1 and Tenant1_VRF2.
+# ==========================================================
+# Tenant1 - Network Services and DHCP
+# DHCP serving leaf: DC1-Leaf4
+# ==========================================================
 
 tenant1_services:
   - name: Tenant1
@@ -15,19 +19,14 @@ tenant1_services:
 
         svis:
 
-          # User VLAN
+          # User VLAN 110
           - id: 110
             name: USERS_T1_VR1_VLAN110
             enabled: true
             ip_address_virtual: 10.10.110.1/24
 
-            # DHCP server pool definition (custom data)
-            dhcp_pool:
-              network: 10.10.110.0/24
-              start: 10.10.110.10
-              end: 10.10.110.254
-              default_gateway: 10.10.110.1
-              lease_days: 1
+            # Enable DHCP only on the designated serving leaf
+            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
 
           # Transit to Inter-VRF Router
           - id: 91
@@ -52,19 +51,14 @@ tenant1_services:
 
         svis:
 
-          # User VLAN
+          # User VLAN 120
           - id: 120
             name: USERS_T1_VR2_VLAN120
             enabled: true
             ip_address_virtual: 10.20.120.1/24
 
-            # DHCP server pool definition (custom data)
-            dhcp_pool:
-              network: 10.20.120.0/24
-              start: 10.20.120.10
-              end: 10.20.120.254
-              default_gateway: 10.20.120.1
-              lease_days: 1
+            # Enable DHCP only on the designated serving leaf
+            structured_config: "{{ {'dhcp_server_ipv4': true} if inventory_hostname == 'DC1-Leaf4' else {} }}"
 
           # Transit to Inter-VRF Router
           - id: 92
@@ -80,3 +74,36 @@ tenant1_services:
             next_hop: 10.255.92.2
             nodes:
               - DC1-Leaf1
+
+
+# ==========================================================
+# Tenant1 DHCP server definitions
+# ==========================================================
+
+tenant1_dhcp_servers:
+
+  # VRF1 - VLAN 110
+  - vrf: Tenant1_VRF1
+    ipv4_subnets:
+      - subnet: 10.10.110.0/24
+        default_gateway: 10.10.110.1
+        ranges:
+          - start: 10.10.110.10
+            end: 10.10.110.254
+
+  # VRF2 - VLAN 120
+  - vrf: Tenant1_VRF2
+    ipv4_subnets:
+      - subnet: 10.20.120.0/24
+        default_gateway: 10.20.120.1
+        ranges:
+          - start: 10.20.120.10
+            end: 10.20.120.254
+
+
+# ==========================================================
+# Merge DHCP definitions from both tenant files
+# Only DC1-Leaf4 receives the DHCP server configuration.
+# ==========================================================
+
+custom_structured_configuration_dhcp_servers: "{{ (tenant1_dhcp_servers + tenant2_dhcp_servers) if inventory_hostname == 'DC1-Leaf4' else [] }}"
