@@ -66,12 +66,12 @@ servers:
         spanning_tree_portfast: edge
         
 
-  - name: Test_Jenkins-2
+  - name: Test_Jenkins-3
     adapters:
       - endpoint_ports:
           - eth0
         switch_ports:
-          - Ethernet7
+          - Ethernet6
         switches:
           - DC1-Leaf4
         vlans: 120
