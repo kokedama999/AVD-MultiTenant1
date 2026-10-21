@@ -1,4 +1,3 @@
-##Jenkins file to connec to Jenkins
 // Arista AVD 6.3 / EVPN-VXLAN lab pipeline
 // Repository: kokedama999/AVD-MultiTenant1
 // By default GitHub pushes BUILD ONLY. Deployment requires DEPLOY=true
