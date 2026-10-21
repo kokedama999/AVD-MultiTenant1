@@ -8,9 +8,8 @@
 // Required Jenkins credentials:
 //   github-avd          : Username/Password (GitHub username + PAT with repository read access)
 //   ask-vault-pass      : Secret text (Ansible Vault password)
-// The encrypted vault file must exist on the Jenkins agent at:
-//   /var/lib/jenkins/avd-secrets/vault.yml
-// Jenkins must be able to read it. No avd-vault-file Jenkins credential is needed.
+// Use the existing encrypted group_vars/FABRIC/vault.yml in the job workspace.
+// Jenkins will not move, overwrite, or delete your existing vault file.
 
 pipeline {
     agent any
@@ -45,7 +44,6 @@ pipeline {
     environment {
         REPO_URL = 'https://github.com/kokedama999/AVD-MultiTenant1.git'
         REPO_BRANCH = 'main'
-        AVD_VAULT_SOURCE = '/var/lib/jenkins/avd-secrets/vault.yml'
         AVD_VENV = '/var/lib/jenkins/avd-cache/venv'
         ANSIBLE_COLLECTIONS_PATH = '/var/lib/jenkins/avd-cache/collections'
         AVD_DEPS_FINGERPRINT = '/var/lib/jenkins/avd-cache/requirements.sha256'
@@ -56,7 +54,7 @@ pipeline {
     stages {
         stage('1 - Checkout from GitHub') {
             steps {
-                deleteDir()
+                // Do not delete workspace: vault.yml is Git-ignored and must be preserved.
                 git branch: env.REPO_BRANCH,
                     credentialsId: 'github-avd',
                     url: env.REPO_URL
@@ -114,18 +112,8 @@ umask 077
 VAULT_PASSWORD_FILE="$(mktemp)"
 trap 'rm -f "$VAULT_PASSWORD_FILE"' EXIT
 printf '%s\n' "$VAULT_PASSWORD" > "$VAULT_PASSWORD_FILE"
-# Keep the encrypted vault outside Git, then copy into this job workspace.
-# A Jenkins agent must run on the server with this readable vault file.
-if [[ ! -r "$AVD_VAULT_SOURCE" ]]; then
-    echo "ERROR: Jenkins cannot read $AVD_VAULT_SOURCE" >&2
-    echo 'Copy your encrypted group_vars/FABRIC/vault.yml there (see setup instructions).' >&2
-    exit 1
-fi
-head -n 1 "$AVD_VAULT_SOURCE" | grep -q 'ANSIBLE_VAULT' || {
-    echo 'ERROR: Vault source is not an Ansible Vault encrypted file.' >&2
-    exit 1
-}
-install -m 600 "$AVD_VAULT_SOURCE" group_vars/FABRIC/vault.yml
+# Keep the existing encrypted group_vars/FABRIC/vault.yml untouched.
+# Git ignores it; the checkout stage must not clean/delete the workspace.
 source "$AVD_VENV/bin/activate"
 ansible-inventory -i inventory.yml --graph
 ansible-playbook -i inventory.yml build.yml \
@@ -294,8 +282,8 @@ ansible -i inventory.yml "$TARGET" -m arista.eos.eos_command \
                              allowEmptyArchive: true
             sh '''#!/usr/bin/env bash
 set -e
-# Remove the temporary encrypted vault from the workspace after EVERY build.
-rm -f group_vars/FABRIC/vault.yml .jenkins_running_snapshot.yml
+# Never remove the existing encrypted Vault file.
+rm -f .jenkins_running_snapshot.yml
 '''
         }
         success {
