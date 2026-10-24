@@ -1,6 +1,6 @@
 ---
 servers:
-  - name: T1_VR1_VL110_PC1
+  - name: PC1_T1_VRF1_VL110_10.10.110.10
     adapters:
       - endpoint_ports:
           - eth0
@@ -12,21 +12,7 @@ servers:
         mode: access
         spanning_tree_portfast: edge
 
-  - name: T1_VR1_VL110_PC2
-    adapters:
-      - endpoint_ports:
-          - eth0
-        switch_ports:
-          - Ethernet8
-        switches:
-          - DC1-Leaf4
-        vlans: 110
-        mode: access
-        spanning_tree_portfast: edge
-
-
-
-  - name: T2_VR2_VL210_PC1
+  - name: PC2_T2_VR1_VL210_20.10.210.10
     adapters:
       - endpoint_ports:
           - eth0
@@ -39,8 +25,7 @@ servers:
         spanning_tree_portfast: edge
 
 
-    
-  - name: T2-VR2_VL210_PC2
+  - name: PC3_T2-VRF2-VL220-20.20.220.10
     adapters:
       - endpoint_ports:
           - eth0
@@ -53,7 +38,19 @@ servers:
         spanning_tree_portfast: edge
         
 
-  - name: T1_VR1_VLAN110_PC2
+  - name: PC4_T1-VRF1-VL110-10.10.110.20
+    adapters:
+      - endpoint_ports:
+          - eth0
+        switch_ports:
+          - Ethernet8
+        switches:
+          - DC1-Leaf4
+        vlans: 110
+        mode: access
+        spanning_tree_portfast: edge
+   
+  - name: PC5_T1_VR2_VLAN120 10.20.120.10
     adapters:
       - endpoint_ports:
           - eth0
@@ -64,7 +61,7 @@ servers:
         vlans: 120
         mode: access
         spanning_tree_portfast: edge
-        
+
 
   - name: Test_Jenkins-File9
     adapters:
