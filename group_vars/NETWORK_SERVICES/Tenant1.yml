@@ -24,12 +24,12 @@ tenant1_services:
             ip_address_virtual: 10.10.110.1/24
 
           # Transit to Inter-VRF Router
-          - id: 91
+          - id: 1111
             name: T1_VRF1_ROUTER_TRANSIT
             enabled: true
             nodes:
               - node: DC1-Leaf1
-                ip_address: 10.255.11.1/30
+                ip_address: 101.101.101.1/30
 
         static_routes:
           - prefix: 10.20.120.0/24
@@ -46,18 +46,18 @@ tenant1_services:
         svis:
 
           # User VLAN
-          - id: 120
+          - id: 1122
             name: USERS_T1_VR2_VLAN120
             enabled: true
             ip_address_virtual: 10.20.120.1/24
 
           # Transit to Inter-VRF Router
-          - id: 92
+          - id: 1102
             name: T1_VRF2_ROUTER_TRANSIT
             enabled: true
             nodes:
               - node: DC1-Leaf1
-                ip_address: 10.255.12.1/30
+                ip_address: 102.102.102.1/30
 
         static_routes:
           - prefix: 10.10.110.0/24
