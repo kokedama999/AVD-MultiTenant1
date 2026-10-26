@@ -29,7 +29,7 @@ tenant1_services:
             enabled: true
             nodes:
               - node: DC1-Leaf1
-                ip_address: 10.255.91.1/30
+                ip_address: 10.255.11.1/30
 
         static_routes:
           - prefix: 10.20.120.0/24
@@ -57,7 +57,7 @@ tenant1_services:
             enabled: true
             nodes:
               - node: DC1-Leaf1
-                ip_address: 10.255.92.1/30
+                ip_address: 10.255.12.1/30
 
         static_routes:
           - prefix: 10.10.110.0/24
