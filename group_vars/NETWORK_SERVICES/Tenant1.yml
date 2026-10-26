@@ -32,8 +32,13 @@ tenant1_services:
                 ip_address: 101.101.101.1/30
 
         static_routes:
-          - prefix: 10.20.120.0/24
-            next_hop: 10.255.91.2
+          - prefix: 20.10.210.0/24
+            next_hop: 101.101.101.2
+            nodes:
+              - DC1-Leaf1
+
+          - prefix: 20.20.210.0/24
+            next_hop: 101.101.101.2
             nodes:
               - DC1-Leaf1
 
@@ -61,10 +66,14 @@ tenant1_services:
 
         static_routes:
           - prefix: 10.10.110.0/24
-            next_hop: 10.255.92.2
+            next_hop: 102.102.102.1
             nodes:
               - DC1-Leaf1
-
+              
+          - prefix: 10.20.120.0/24
+            next_hop: 102.102.102.1
+            nodes:
+              - DC1-Leaf1
 
 # ======================================================
 # AVD Custom Structured Configuration Prefixes
@@ -78,54 +87,3 @@ custom_structured_configuration_prefix:
   - tenant1_csc_
   - tenant2_csc_
 
-
-# ======================================================
-# Tenant1 DHCP Pools
-# ======================================================
-
-tenant1_dhcp_server_definitions:
-
-  - vrf: Tenant1_VRF1
-    lease_time_ipv4:
-      days: 1
-      hours: 0
-      minutes: 0
-    ipv4_subnets:
-      - subnet: 10.10.110.0/24
-        default_gateway: 10.10.110.1
-        ranges:
-          - start: 10.10.110.10
-            end: 10.10.110.254
-
-  - vrf: Tenant1_VRF2
-    lease_time_ipv4:
-      days: 1
-      hours: 0
-      minutes: 0
-    ipv4_subnets:
-      - subnet: 10.20.120.0/24
-        default_gateway: 10.20.120.1
-        ranges:
-          - start: 10.20.120.10
-            end: 10.20.120.254
-
-
-# ======================================================
-# Enable DHCP on Tenant1 SVIs
-# ======================================================
-
-tenant1_dhcp_svi_definitions:
-  - name: Vlan110
-    dhcp_server_ipv4: true
-
-  - name: Vlan120
-    dhcp_server_ipv4: true
-
-
-# ======================================================
-# Apply Tenant1 DHCP only to DC1-Leaf4
-# ======================================================
-
-tenant1_csc_dhcp_servers: "{{ tenant1_dhcp_server_definitions if inventory_hostname == 'DC1-Leaf4' else [] }}"
-
-tenant1_csc_vlan_interfaces: "{{ tenant1_dhcp_svi_definitions if inventory_hostname == 'DC1-Leaf4' else [] }}"
