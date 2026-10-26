@@ -23,6 +23,40 @@ tenant2_services:
             enabled: true
             ip_address_virtual: 20.10.210.1/24
 
+
+
+
+
+
+          # Transit to Inter-VRF Router
+          - id: 2201
+            name: T2_VRF2_ROUTER_TRANSIT
+            enabled: true
+            nodes:
+              - node: DC1-Leaf1
+                ip_address: 201.201.201.1/30
+
+        static_routes:
+          - prefix: 10.10.110.0/24
+            next_hop: 201.201.201.1
+            nodes:
+              - DC1-Leaf1
+              
+          - prefix: 10.20.120.0/24
+            next_hop: 201.201.201.1
+            nodes:
+              - DC1-Leaf1
+
+          - prefix: 20.10.210.0/24
+            next_hop: 201.201.201.1
+            nodes:
+              - DC1-Leaf1
+              
+          - prefix: 20.20.220.0/24
+            next_hop: 201.201.201.1
+            nodes:
+              - DC1-Leaf1
+
       # ==================================================
       # Tenant2 VRF2
       # ==================================================
@@ -36,6 +70,37 @@ tenant2_services:
             name: T2_VR2_USERS_VLAN220
             enabled: true
             ip_address_virtual: 20.20.220.1/24
+
+
+          # Transit to Inter-VRF Router
+          - id: 2201
+            name: T2_VRF2_ROUTER_TRANSIT
+            enabled: true
+            nodes:
+              - node: DC1-Leaf1
+                ip_address: 202.202.202.1/30
+
+        static_routes:
+          - prefix: 10.10.110.0/24
+            next_hop: 202.202.202.1
+            nodes:
+              - DC1-Leaf1
+              
+          - prefix: 10.20.120.0/24
+            next_hop: 202.202.202.1
+            nodes:
+              - DC1-Leaf1
+
+          - prefix: 20.10.210.0/24
+            next_hop: 202.202.202.1
+            nodes:
+              - DC1-Leaf1
+              
+          - prefix: 20.20.220.0/24
+            next_hop: 202.202.202.1
+            nodes:
+              - DC1-Leaf1
+
 
 
 # ======================================================
@@ -67,6 +132,10 @@ tenant2_dhcp_server_definitions:
         ranges:
           - start: 20.20.220.10
             end: 20.20.220.254
+
+
+
+
 
 
 # ======================================================
