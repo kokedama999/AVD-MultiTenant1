@@ -84,6 +84,6 @@ servers:
           - Ethernet7
         switches:
           - DC1-Leaf1
-        vlans: 1101-1102,1201-1202
+        vlans: 1101-1102,2201-2202
         mode: trunk
         spanning_tree_portfast: edge
