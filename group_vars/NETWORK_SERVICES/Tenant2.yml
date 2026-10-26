@@ -24,10 +24,6 @@ tenant2_services:
             ip_address_virtual: 20.10.210.1/24
 
 
-
-
-
-
           # Transit to Inter-VRF Router
           - id: 2201
             name: T2_VRF2_ROUTER_TRANSIT
