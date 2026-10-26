@@ -24,7 +24,7 @@ tenant1_services:
             ip_address_virtual: 10.10.110.1/24
 
           # Transit to Inter-VRF Router
-          - id: 1301
+          - id: 1101
             name: T1_VRF1_ROUTER_TRANSIT
             enabled: true
             nodes:
