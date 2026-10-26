@@ -71,17 +71,17 @@ tenant1_services:
 
         static_routes:
           - prefix: 10.10.110.0/24
-            next_hop: 102.102.102.1
+            next_hop: 102.102.102.2
             nodes:
               - DC1-Leaf1
               
           - prefix: 20.10.210.0/24
-            next_hop: 102.102.102.1
+            next_hop: 102.102.102.2
             nodes:
               - DC1-Leaf1
               
           - prefix: 20.20.220.0/24
-            next_hop: 102.102.102.1
+            next_hop: 102.102.102.2
             nodes:
               - DC1-Leaf1
 
