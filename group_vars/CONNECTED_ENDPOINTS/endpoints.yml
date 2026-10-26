@@ -33,7 +33,7 @@ servers:
           - Ethernet8
         switches:
           - DC1-Leaf3
-        vlans: 210
+        vlans: 220
         mode: access
         spanning_tree_portfast: edge
         
