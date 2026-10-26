@@ -31,13 +31,18 @@ tenant1_services:
               - node: DC1-Leaf1
                 ip_address: 101.101.101.1/30
 
-        static_routes:
-          - prefix: 20.10.210.0/24
+        static_routes:          
+          - prefix: 10.20.120.0/24
             next_hop: 101.101.101.2
             nodes:
               - DC1-Leaf1
 
-          - prefix: 20.20.210.0/24
+          - prefix: 20.10.210.0/24
+            next_hop: 101.101.101.2
+            nodes:
+              - DC1-Leaf1
+              
+          - prefix: 20.20.220.0/24
             next_hop: 101.101.101.2
             nodes:
               - DC1-Leaf1
@@ -70,10 +75,16 @@ tenant1_services:
             nodes:
               - DC1-Leaf1
               
-          - prefix: 10.20.120.0/24
+          - prefix: 20.10.210.0/24
             next_hop: 102.102.102.1
             nodes:
               - DC1-Leaf1
+              
+          - prefix: 20.20.220.0/24
+            next_hop: 102.102.102.1
+            nodes:
+              - DC1-Leaf1
+
 
 # ======================================================
 # AVD Custom Structured Configuration Prefixes
