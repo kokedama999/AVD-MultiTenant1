@@ -37,12 +37,8 @@ tenant2_services:
             next_hop: 201.201.201.2
             nodes:
               - DC1-Leaf1
-              
-          - prefix: 10.10.130.0/24
-            next_hop: 202.202.202.2
-            nodes:
-              - DC1-Leaf1
-                            
+             
+                          
           - prefix: 10.20.120.0/24
             next_hop: 201.201.201.2
             nodes:
