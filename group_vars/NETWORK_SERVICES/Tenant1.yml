@@ -82,7 +82,7 @@ tenant1_services:
             nodes:
               - DC1-Leaf1
           - prefix: 10.10.130.0/24
-            next_hop: 202.202.202.2
+            next_hop: 102.102.102.2
             nodes:
               - DC1-Leaf1              
           - prefix: 20.10.210.0/24
